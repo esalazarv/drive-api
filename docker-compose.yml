@@ -1,0 +1,42 @@
+version: "3.7"
+
+networks:
+  internal:
+    driver: "bridge"
+  external:
+    name: drive-api
+    driver: "bridge"
+
+volumes:
+  database:
+    driver: "local"
+
+services:
+  api:
+    build:
+      context: .
+      target: ${DOCKER_API_STAGE:-development}
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/node_modules
+    networks:
+      - internal
+      - external
+    ports:
+      - "${DOCKER_API_PORT:-3000}:3000"
+    restart: always
+
+  database:
+    image: mariadb
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - "${DOCKER_DB_PORT:-3306}:3306"
+    networks:
+      - internal
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DOCKER_DB_ROOT_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DOCKER_DB_DATABASE:-feedma}
+      MYSQL_USER: ${DOCKER_DB_USERNAME:-feedma}
+      MYSQL_PASSWORD: ${DOCKER_DB_PASSWORD:-secret}
+    restart: always
