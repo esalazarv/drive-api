@@ -12,13 +12,13 @@ export const database: DatabaseConnections = {
     username: process.env.DB_USERNAME || 'feedma',
     password: process.env.DB_PASSWORD || 'secret',
     database: process.env.DB_DATABSE || 'feedma',
-    entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    synchronize: !!process.env.DB_SYNC || true,
-    migrationsRun: true,
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    synchronize: false,
+    migrationsRun: false,
     logging: true,
     migrations: [__dirname + '/../migrations/**/*{.ts,.js}'],
     cli: {
-      migrationsDir: './migrations',
+      migrationsDir: 'src/migrations',
     },
   }),
 };
