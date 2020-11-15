@@ -14,12 +14,24 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
+  })
   created_at: Date;
 
-  @Column()
+  @Column({
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
+  })
   updated_at: Date;
 
-  @Column()
+  @Column({
+    nullable: true,
+    default: null,
+    type: 'timestamp',
+  })
   deleted_at: Date;
 }
