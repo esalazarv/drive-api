@@ -25,15 +25,12 @@ export class User {
   @Exclude()
   password: string;
 
-  @Column()
   @CreateDateColumn()
   created_at: Date;
 
-  @Column()
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column()
   @DeleteDateColumn()
   deleted_at: Date;
 
