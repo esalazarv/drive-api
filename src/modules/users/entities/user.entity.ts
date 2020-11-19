@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import * as bcrypt from 'bcrypt';
+import { Storage } from '../../storage/entities/storage.entity';
 
 @Entity()
 export class User {
@@ -24,6 +26,9 @@ export class User {
   @Column()
   @Exclude()
   password: string;
+
+  @OneToMany(() => Storage, (storage) => storage.user)
+  drives: Storage[];
 
   @CreateDateColumn()
   created_at: Date;

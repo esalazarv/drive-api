@@ -30,6 +30,6 @@ export class StorageService {
   }
 
   remove(id: string) {
-    return this.storageRepository.delete(id);
+    return this.storageRepository.softDelete(id);
   }
 }

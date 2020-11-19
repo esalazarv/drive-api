@@ -4,12 +4,14 @@ import { S3 } from 'aws-sdk';
 import { StorageService } from './storage.service';
 import { StorageController } from './storage.controller';
 import { Storage } from './entities/storage.entity';
+import { StorageSubscriber } from './subscribers/storage.subscriber';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Storage])],
   controllers: [StorageController],
   providers: [
     StorageService,
+    StorageSubscriber,
     {
       provide: S3,
       useFactory: () =>

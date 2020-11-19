@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
-@Unique(['name'])
 export class Storage {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -17,8 +17,14 @@ export class Storage {
   @Column()
   name: string;
 
-  @Column({ default: false })
-  public: boolean;
+  @Column({ type: 'bigint', default: 1000000, unsigned: true })
+  quota: number;
+
+  @Column({ type: 'bigint', default: 0, unsigned: true })
+  usage: number;
+
+  @ManyToOne(() => User, (user) => user.drives)
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;
